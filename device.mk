@@ -50,6 +50,7 @@ PRODUCT_PACKAGES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
+    make_f2fs \
     e2fsck \
     setup_fs
 
@@ -84,6 +85,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
+# simple kernel module load script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/01moduleload:system/etc/init.d/01moduleload
+
 # Misc
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
@@ -107,7 +112,7 @@ PRODUCT_PACKAGES += \
     libcsc \
     libExynosOMX_Core \
     libOMX.Exynos.MP3.Decoder \
-    libstagefrighthw \
+    libstagefrighthw
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -121,7 +126,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
@@ -129,6 +133,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
+# Power
+PRODUCT_PACKAGES += \
+    power.universal5420
 
 # Ramdisk
 TARGET_PROVIDES_INIT_RC := true
@@ -158,10 +165,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Torch
 
-# wifi only
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.carrier=wifi-only
-
 # Wifi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
@@ -171,6 +174,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libnetcmdiface \
     macloader
+    
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.carrier=wifi-only
 
 # CPU producer to CPU consumer not supported 
 PRODUCT_PROPERTY_OVERRIDES += \
