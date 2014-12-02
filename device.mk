@@ -22,7 +22,7 @@ PRODUCT_CHARACTERISTICS := tablet
 DEVICE_PACKAGE_OVERLAYS += device/samsung/klimtwifi/overlay
 
 # Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := xlarge hdpi xhdpi xxhdpi
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Audio
@@ -50,7 +50,6 @@ PRODUCT_PACKAGES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
-    make_f2fs \
     e2fsck \
     setup_fs
 
@@ -84,10 +83,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
-
-# simple kernel module load script
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/01moduleload:system/etc/init.d/01moduleload
 
 # Misc
 PRODUCT_PACKAGES += \
@@ -146,6 +141,7 @@ PRODUCT_PACKAGES += \
     init.universal5420.rc \
     init.universal5420.usb.rc \
     init.universal5420.wifi.rc \
+    lpm.rc \
     ueventd.universal5420.rc
 
 # Radio (needed for audio controls even on wifi-only)
@@ -174,13 +170,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libnetcmdiface \
     macloader
-    
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.carrier=wifi-only
-
-# CPU producer to CPU consumer not supported 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bq.gpu_to_cpu_unsupported=1
 
 # call dalvik heap config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
