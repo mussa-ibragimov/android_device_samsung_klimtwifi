@@ -14,15 +14,15 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/samsung/klimtwifi
+LOCAL_PATH := device/samsung/chagallwifi
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 PRODUCT_CHARACTERISTICS := tablet
-DEVICE_PACKAGE_OVERLAYS += device/samsung/klimtwifi/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/chagallwifi/overlay
 
 # Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := xlarge hdpi xhdpi xxhdpi
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Audio
@@ -39,8 +39,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
 # Boot animation
-TARGET_SCREEN_HEIGHT := 2560
-TARGET_SCREEN_WIDTH := 1600
+TARGET_SCREEN_HEIGHT := 1600
+TARGET_SCREEN_WIDTH := 2560
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -69,7 +69,7 @@ PRODUCT_PACKAGES += \
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl
+    $(LOCAL_PATH)/configs/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl
 
 # Keystore
 PRODUCT_PACKAGES += \
@@ -81,6 +81,10 @@ PRODUCT_PACKAGES += \
 
 # Media profile
 PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml  \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
@@ -107,7 +111,7 @@ PRODUCT_PACKAGES += \
     libcsc \
     libExynosOMX_Core \
     libOMX.Exynos.MP3.Decoder \
-    libstagefrighthw
+    libstagefrighthw \
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -141,6 +145,7 @@ PRODUCT_PACKAGES += \
     init.universal5420.rc \
     init.universal5420.usb.rc \
     init.universal5420.wifi.rc \
+    lpm.rc \
     ueventd.universal5420.rc
 
 # Radio (needed for audio controls even on wifi-only)
@@ -167,18 +172,19 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
+    dhcpcd.conf \
+    hostapd \
+    hostapd_default.conf \
+    libwpa_client \
+    wpa_supplicant
+
+
+PRODUCT_PACKAGES += \
     libnetcmdiface \
     macloader
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.carrier=wifi-only
-
-# CPU producer to CPU consumer not supported 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bq.gpu_to_cpu_unsupported=1
 
 # call dalvik heap config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 
 # call the proprietary setup
-$(call inherit-product-if-exists, vendor/samsung/klimtwifi/klimtwifi-vendor.mk)
+$(call inherit-product-if-exists, vendor/samsung/chagallwifi/chagallwifi-vendor.mk)

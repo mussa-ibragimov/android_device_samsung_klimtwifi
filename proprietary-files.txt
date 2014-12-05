@@ -4,11 +4,9 @@ vendor/firmware/srp_data.bin
 vendor/firmware/srp_vliw.bin
 
 # Bluetooth
-vendor/firmware/bcm4335.hcd
-vendor/firmware/bcm4335_A0.hcd
-vendor/firmware/bcm4335_murata.hcd
-vendor/firmware/bcm4335_semco.hcd
-vendor/firmware/BT_FW_VER_BCM4339_003.001.009.0031.0136_ORC_N1-3G.hcd
+vendor/firmware/bcm4350.hcd
+vendor/firmware/bcm4350_A0.hcd
+vendor/firmware/BT_FW_VER_BCM4354_003.001.012.0184.0286_Chagall_WIFI_ORC.hcd
 
 # OemCrypto
 vendor/lib/liboemcrypto.so
@@ -30,7 +28,7 @@ lib/libsecnativefeature.so
 lib/libvdis.so
 
 # DRM
-bin/drmserver.samsung
+bin/drmserver
 lib/libdrmdecrypt.so
 lib/libstagefright_hdcp.so
 lib/libwvdrm_L1.so

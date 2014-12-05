@@ -57,7 +57,6 @@ BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_CONFIG := cyanogenmod_klimtwifi_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/chagallwifi
-#TARGET_PREBUILT_KERNEL := device/samsung/klimtwifi/kernel
 
 # Battery
 BOARD_BATTERY_DEVICE_NAME := battery
@@ -74,11 +73,6 @@ BOARD_USES_NEON_BLITANTIH := true
 # Graphics
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
-BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
-BOARD_EGL_WORKAROUND_BUG_10194508 := true
-BOARD_USE_BGRA_8888 := true
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
-# OVERRIDE_RS_DRIVER := libRSDriverArm.so
 
 # HWCServices
 BOARD_USES_HWC_SERVICES := true
@@ -135,22 +129,22 @@ RECOVERY_GRAPHICS_USE_LINELENGTH := true
 BOARD_USES_SCALER := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS := \
-    device/samsung/klimtwifi/sepolicy
+BOARD_SEPOLICY_DIRS += \
+	device/samsung/klimtwifi/sepolicy
 
-BOARD_SEPOLICY_UNION := \
-    file_contexts \
-    genfs_contexts \
-    adbd.te \
-    app.te \
-    device.te \
-    domain.te \
-    gpsd.te \
-    file.te \
-    mediaserver.te \
-    surfaceflinger.te \
-    samsung_media.te \
-    system.te
+BOARD_SEPOLICY_UNION += \
+	file_contexts \
+	device.te \
+	domain.te \
+	drmserver.te \
+	file.te \
+	gpsd.te \
+	init.te \
+	mediaserver.te \
+	servicemanager.te \
+	system_app.te \
+	system_server.te \
+	wpa.te
 
 # SurfaceFlinger
 BOARD_USES_SYNC_MODE_FOR_MEDIA := true
